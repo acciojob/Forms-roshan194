@@ -1,48 +1,47 @@
-import React, { useRef } from 'react';
+import React, { useRef } from "react";
+import Card from "./Card";
 
 const FormRef = () => {
-    const fullNameRef = useRef();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const passwordConfirmationRef = useRef();
+  const fullNameRef = useRef();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const confirmPasswordRef = useRef();
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const fullName = fullNameRef.current.value;
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
-        const passwordConfirmation = passwordConfirmationRef.current.value;
-
-        console.log('Full Name:', fullName);
-        console.log('Email:', email);
-        console.log('Password:', password);
-        console.log('Password Confirmation:', passwordConfirmation);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const data = {
+      fullName: fullNameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      confirmPassword: confirmPasswordRef.current.value
     };
+    alert(`Form submitted with useRef:\n${JSON.stringify(data, null, 2)}`);
+  };
 
-    return (
-        <div id="form-ref-link">
-            <h2>Form with useRef</h2>
-            <form id="info-form" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="full_name">Full Name:</label>
-                    <input type="text" id="full_name" ref={fullNameRef} required />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input type="email" id="email" ref={emailRef} required />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input type="password" id="password" ref={passwordRef} required />
-                </div>
-                <div>
-                    <label htmlFor="password_confirmation">Password Confirmation:</label>
-                    <input type="password" id="password_confirmation" ref={passwordConfirmationRef} required />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+  return (
+    <Card>
+      <h2>Form Handling with useRef</h2>
+      <form id="info-form" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="full_name">Full Name:</label>
+          <input id="full_name" type="text" ref={fullNameRef} />
         </div>
-    );
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input id="email" type="email" ref={emailRef} />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input id="password" type="password" ref={passwordRef} />
+        </div>
+        <div>
+          <label htmlFor="password_confirmation">Confirm Password:</label>
+          <input id="password_confirmation" type="password" ref={confirmPasswordRef} />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </Card>
+  );
 };
 
 export default FormRef;

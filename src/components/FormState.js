@@ -1,65 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import Card from "./Card";
 
 const FormState = () => {
-    const [fullName, setFullName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: ""
+  });
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Handle form submission logic here
-        console.log('Form submitted:', { fullName, email, password, passwordConfirmation });
-    };
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
 
-    return (
-        <div id="form-state-link">
-            <h2>Form with useState</h2>
-            <form id="info-form" onSubmit={handleSubmit}>
-                <div>
-                    <label htmlFor="full_name">Full Name:</label>
-                    <input
-                        type="text"
-                        id="full_name"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Password:</label>
-                    <input
-                        type="password"
-                        id="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password_confirmation">Confirm Password:</label>
-                    <input
-                        type="password"
-                        id="password_confirmation"
-                        value={passwordConfirmation}
-                        onChange={(e) => setPasswordConfirmation(e.target.value)}
-                        required
-                    />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert(`Form submitted with useState:\n${JSON.stringify(formData, null, 2)}`);
+  };
+
+  return (
+    <Card>
+      <h2>Form Handling with useState</h2>
+      <form id="info-form" onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="full_name">Full Name:</label>
+          <input id="full_name" type="text" value={formData.full_name} onChange={handleChange} />
         </div>
-    );
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input id="email" type="email" value={formData.email} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input id="password" type="password" value={formData.password} onChange={handleChange} />
+        </div>
+        <div>
+          <label htmlFor="password_confirmation">Confirm Password:</label>
+          <input id="password_confirmation" type="password" value={formData.password_confirmation} onChange={handleChange} />
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </Card>
+  );
 };
 
 export default FormState;
